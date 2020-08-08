@@ -3,6 +3,7 @@ from flask import Flask, request
 from flask_restful import Resource, Api
 # flask_restful automatically convert dict to json, so jsonify is not needed
 app = Flask(__name__)
+app.secret_key = 'Hieu'
 api = Api(app)
 
 items = []
