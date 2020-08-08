@@ -1,4 +1,5 @@
-from flask import Flask
+from flask import Flask, request
+# request: filtering types of requests data
 from flask_restful import Resource, Api
 # flask_restful automatically convert dict to json, so jsonify is not needed
 app = Flask(__name__)
@@ -15,11 +16,18 @@ class Item(Resource):
         return {'item': None}, 404  # if the item name  cannot be found
 
     def post(self, name):
-        item = {'name': name, 'price': 12.00}
+        data = request.get_json()  # accept only json type data
+        item = {'name': name, 'price': data['price']}
         items.append(item)
-        return item
+        return item, 201
 
 
-# define how the path for the resource
+class ItemList(Resource):
+    def get(self):
+        return {'item': items}
+
+
 api.add_resource(Item, '/item/<string:name>')
-app.run(port=5000)
+api.add_resource(ItemList, '/items')
+
+app.run(port=5000, debug=True)
