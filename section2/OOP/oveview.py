@@ -17,11 +17,28 @@ class Student:
 
     def average(self):
         return sum(sequence) / len(sequence)
+    def __str__(self):
+        return f"Student {self.name}, {self.grades} years old."
+    def __repr__(self):
+        return f"Student"
+
+
 
 
 # easier to pass json
 studenta = Student("Bob", (89, 90, 93, 78, 90))
 print(studenta.name)
-print(Student.average())
+
 # access directly in student object
+print(studenta)
+
+
+
+
+
+
+
+
+
+
 
