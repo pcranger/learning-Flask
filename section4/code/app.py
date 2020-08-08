@@ -10,12 +10,15 @@ items = []
 
 class Item(Resource):
     def get(self, name):
-        for item in items:
-            if item['name'] == name:
-                return item
-        return {'item': None}, 404  # if the item name  cannot be found
+        # next(filter()): return the first item found from items of filer function or none if there is no item
+        item = next(filter(lambda x: x['name'] == name, items), None)
+        # if the item name  cannot be found
+        return {'item': None}, 200 if item else 404
 
     def post(self, name):
+        # if found an item and it's not None
+        if next(filter(lambda x: x['name'] == name, items), None) is not None:
+            return {'message': "An item with name '{}' already exists. for".format(name)}, 400
         data = request.get_json()  # accept only json type data
         item = {'name': name, 'price': data['price']}
         items.append(item)
