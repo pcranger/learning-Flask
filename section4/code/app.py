@@ -2,9 +2,15 @@ from flask import Flask, request
 # request: filtering types of requests data
 from flask_restful import Resource, Api
 # flask_restful automatically convert dict to json, so jsonify is not needed
+from jlask_jwt import jlask_jwt
+
+from security import authenticate, identity
 app = Flask(__name__)
 app.secret_key = 'Hieu'
 api = Api(app)
+
+jwt = JWT(app, authenticate, identity)
+# jwt creates new endpoints /auth
 
 items = []
 
