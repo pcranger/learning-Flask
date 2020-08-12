@@ -16,7 +16,7 @@ def apply(*args, operator):
         return "Novalid operator provided to apply apply()."
 
 
-print(apply(1, 3, 6, 7), operator="+")
+print(apply(1, 3, 6, 7, operator="+"))
 
 
 def add(x, y):
@@ -24,5 +24,5 @@ def add(x, y):
 
 
 nums = {"x": 15, "y": 25}
-#print(add(x=nums["x"], y=nums["y"]))
+# print(add(x=nums["x"], y=nums["y"]))
 print(add(**nums))

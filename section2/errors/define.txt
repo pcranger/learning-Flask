@@ -1,0 +1,7 @@
+Some common errors in python
+https: // docs.python.org/3/library/exceptions.html
+raise is a used to defind a "general" error message inside a function
+
+(e.g raise ZeroDivisionError("Divisor cannot be 0."))
+
+try, except if encounter that error and print a more relevant message based on the context of the function it's in
