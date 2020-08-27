@@ -77,3 +77,27 @@ print(new_emp_1.pay)
 my_date = datetime.date(2016, 7, 11)
 
 print(Employee.is_workday(my_date))
+
+
+# A class method is one that belongs to the class as a whole.
+# It doesn't require an instance. Instead, the class will automatically be sent as the first argument. A class method is declared with the @classmethod decorator.
+
+
+class Foo(object):
+    @classmethod
+    def hello(cls):
+        print("hello from %s" % cls.__name__)
+
+
+Foo.hello()
+Foo().hello()
+
+# On the other hand, an instance method requires an instance in order to call it, and requires no decorator. This is by far the most common type of method.
+
+
+class Foo(object):
+    def hello(self):
+        print("hello from %s" % self.__class__.__name__)
+
+
+Foo.hello()  # error

@@ -11,6 +11,8 @@ api = Api(app)
 # app secrerity key(jwt token)
 # when a function is sent jwt token, the user have that token will have access to that function cause he logged in
 jwt = JWT(app, authenticate, identity)
+# /auth
+# this jwt will find authenticate and identity function in security.py
 # jwt creates new endpoints /auth
 
 items = []
@@ -20,6 +22,7 @@ items = []
 
 class Item(Resource):
     # /item/<string:name>
+    parser = reqparse.RequestParser()
     parser.add_argument('price',
                         type=float,
                         required=True,
