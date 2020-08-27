@@ -1,0 +1,17 @@
+
+whenever you use resource, use parser?
+parser = reqparse.RequestParser()
+#initialize a new object used to pass requests (HTML from, JSON,...)
+#define arguments
+parser.add_argument('price',
+                        type=float,
+                        required=True,
+                        help="This field cannot be left blank"
+                        )
+
+#the parser will filter the requests and only takes necessary arguments 
+#with this specific type 
+#e.g type receive is str instead of float, without a parser the api will break
+
+data = Item.parser.parse_args()
+#finally pass the argument to data object if satisfied
