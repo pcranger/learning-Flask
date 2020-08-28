@@ -1,0 +1,18 @@
+Resource: 
+e.g: class UserRegister(Resource)
+the api can send data as json file and do necessary things to it 
+is api can interact with such as user, item, store, student
+, is an external representation of an entity
+from the client view, they are interacting with resources, and api responds with resources
+
+Model:
+e.g class User(): 
+a helper class contains class methods that are helpful
+model is the client, contain username for example to identify him
+, is an internal representation of an entity
+
+
+to simplyfy; models contain class to create objects, functions to manipulate that objects
+and resources contain creation of objects and using those functions
+
+json goes into api and get converted into objects

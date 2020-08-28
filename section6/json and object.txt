@@ -1,0 +1,2 @@
+resources/item.py 
+    return type: json (things that pop up in postman)
