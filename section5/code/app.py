@@ -1,11 +1,12 @@
 from flask import Flask, request
 # request: filtering types of requests data
-from flask_restful import Resource, Api, reqparse
+from flask_restful import Api
 # flask_restful automatically convert dict to json, so jsonify is not needed
-from flask_jwt import JWT, jwt_required, current_identity
+from flask_jwt import JWT
 
 from security import authenticate, identity
 from user import UserRegister
+from item import Item, ItemList
 
 app = Flask(__name__)
 app.secret_key = 'Hieu'
@@ -15,68 +16,10 @@ api = Api(app)
 jwt = JWT(app, authenticate, identity)
 # jwt creates new endpoints /auth
 
-items = []
-
-# item is a resource, it can get, post
-
-
-class Item(Resource):
-    # /item/<string:name>
-    parser = reqparse.RequestParser()
-    parser.add_argument('price',
-                        type=float,
-                        required=True,
-                        help="This field cannot be left blank"
-                        )
-
-    @jwt_required()
-    def get(self, name):
-        # next(filter()): return the first item found from items of filer function or none if there is no item
-        item = next(filter(lambda x: x['name'] == name, items), None)
-        # if the item name  cannot be found
-        return {'item': None}, 200 if item else 404
-
-    def post(self, name):
-
-        # if found an item and it's not None
-        if next(filter(lambda x: x['name'] == name, items), None) is not None:
-            return {'message': "An item with name '{}' already exists. for".format(name)}, 400
-
-        data = Item.parser.parse_args()
-
-        item = {'name': name, 'price': data['price']}
-        items.append(item)
-        return item, 201
-
-    def delete(self, name):
-        global items
-        items = list(filter(lambda x: x['name'] != name, items))
-        # create a new list without the item and overwrite the existing list with this
-        return {'message': 'Item deleted'}
-
-    def put(self, name):
-
-        data = Item.parser.parse_args()
-
-        # prevent adding item without a price by looking at json payload
-        parser = reqparse.RequestParser()
-        item = next(filter(lambda x: x['name'] == name, items), None)
-        if item is None:
-            item = {'name': name, 'price': data['price']}
-            items.append(item)
-        else:
-            items.update(data)
-        return item
-
-
-class ItemList(Resource):
-    # /items
-    def get(self):
-        return {'item': items}
-
 
 api.add_resource(Item, '/item/<string:name>')
 api.add_resource(ItemList, '/items')
 api.add_resource(UserRegister, '/register')
 
-app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
