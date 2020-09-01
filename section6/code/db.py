@@ -1,5 +1,4 @@
-from flask_sqlalchemy import sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 
-db = sqlalchemy()
+db = SQLAlchemy()
 # map objects in app
-
