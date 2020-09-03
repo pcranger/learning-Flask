@@ -1,3 +1,4 @@
+import sqlite3
 from db import db
 
 
@@ -8,7 +9,9 @@ class ItemModel(db.Model):
     name = db.Column(db.String(80))
     price = db.Column(db.Float(precision=2))
 
+    # many items to one store relationship
     store_id = db.Column(db.Integer, db.ForeignKey('stores.id'))
+    # if have store_id, you can find store which has corresponding id
     store = db.relationship('StoreModel')
 
     def __init__(self, name, price, store_id):
@@ -21,9 +24,11 @@ class ItemModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
+        # "SELECT * FROM items WHERE name=name LIMIT 1?"
         return cls.query.filter_by(name=name).first()
 
     def save_to_db(self):
+        # this function perform both update and insert to db
         db.session.add(self)
         db.session.commit()
 
