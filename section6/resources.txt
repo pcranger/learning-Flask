@@ -18,3 +18,5 @@ and resources contain creation of objects and using those functions
 json goes into api and get converted into objects
 
 resources and models are modules, because it has __init__.py file
+
+
