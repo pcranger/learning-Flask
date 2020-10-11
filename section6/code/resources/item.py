@@ -2,9 +2,12 @@ from flask_restful import Resource, reqparse
 from flask_jwt import jwt_required
 from models.item import ItemModel
 
+# Resource return responses to HTTP requests
+
 
 class Item(Resource):
-    parser = reqparse.RequestParser()
+    parser = reqparse.RequestParser()  # shorten RequestParser() to parser
+    # the correct HTTP request form and data type this api should receive(see lesson 76)
     parser.add_argument('price',
                         type=float,
                         required=True,
@@ -27,7 +30,7 @@ class Item(Resource):
         if ItemModel.find_by_name(name):
             return {'message': "An item with name '{}' already exists.".format(name)}, 400
 
-        data = Item.parser.parse_args()
+        data = Item.parser.parse_args()  # data goes to data
 
         item = ItemModel(name, **data)
 
